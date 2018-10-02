@@ -1,6 +1,15 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!DOCTYPE html>
+<html>
 
-<LINK REL=StyleSheet HREF="estilo.css" TYPE="text/css" MEDIA=screen>
+<head>
+    <meta charset="UTF-8">
+    <title>Plan Matematica</title>
+    <link rel="stylesheet" href="./estilo.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
 <script>
 var materias = [
   [],
@@ -166,153 +175,152 @@ var requerimientos = [[36,0]],</script>
       <option value="8">8</option>
     </select>
 
-<script>
+	<script>
 
-function No_cursar(numero,tabla_semestre){
-  var tab = document.getElementById(tabla_semestre);
+	function No_cursar(numero,tabla_semestre){
+	  var tab = document.getElementById(tabla_semestre);
 
-  tab.deleteRow(numero);
-}
+	  tab.deleteRow(numero);
+	}
 
-function Valor_Select(nombre_form){
-  var e = document.getElementById(nombre_form);
-  var strUser = e.options[e.selectedIndex].value;
-  return strUser;
-}
-
-
-var grados = ["Basica", "Intermedias", "Avanzadas"];
-
-function codigo_materia(nombre){
-  var pos = 1;
-  while(materias[pos][0] != nombre)
-    pos = pos + 1;
-  return pos;
-}
-
-function eliminar_creditos(id_materia){
-  area =  materias[id_materia][1];
-  creditos = materias[id_materia][3];
-  sub_area = materias[id_materia][4];
-  if(sub_area != ""){
-    valor = document.getElementById(sub_area+"actuales");
-    valor.innerHTML = Number(valor.innerText) - creditos;
-    valor2 = document.getElementById(sub_area+"faltan");
-    valor2.innerHTML = Number(valor2.innerText) + creditos;
-  }
-  tipos_mat = document.getElementById(area);
-  tipos_mat.innerHTML = Number(tipos_mat.innerText) - creditos;
-  tipos_mat2 = document.getElementById("totales");
-  tipos_mat2.innerHTML = Number(tipos_mat2.innerText) - creditos;
-}
-
-function myFunction(id_materia,semestre) {
-    //Adaptacion
-    nombre_materia = materias[id_materia][0];
-    area =  materias[id_materia][1];
-    tipo = materias[id_materia][2];
-    creditos = materias[id_materia][3];
-    sub_area = materias[id_materia][4];
-    if(sub_area != ""){
-      valor = document.getElementById(sub_area+"actuales");
-      valor.innerHTML = creditos  + Number(valor.innerText);
-      valor2 = document.getElementById(sub_area+"faltan");
-      if (Number(valor2.innerText) - creditos < 0)
-        valor2.innerHTML = 0;
-      else
-        valor2.innerHTML = Number(valor2.innerText) - creditos;
-    }
-    tipos_mat = document.getElementById(area);
-    tipos_mat.innerHTML = creditos  + Number(tipos_mat.innerText);
-    tipos_mat2 = document.getElementById("totales");
-    tipos_mat2.innerHTML = Number(tipos_mat2.innerText) + creditos;
+	function Valor_Select(nombre_form){
+	  var e = document.getElementById(nombre_form);
+	  var strUser = e.options[e.selectedIndex].value;
+	  return strUser;
+	}
 
 
-    var table = document.getElementById(semestre);
-    var row = table.insertRow(1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
-    cell1.innerHTML = nombre_materia;
-    cell2.innerHTML = creditos;
-    if(sub_area != ""){
-        cell3.innerHTML = sub_area;
-    }
-    else
-    {
-        cell3.innerHTML = area;
-    }
-    cell4.innerHTML = tipo;
-}
-</script>
+	var grados = ["Basica", "Intermedias", "Avanzadas"];
 
+	function codigo_materia(nombre){
+	  var pos = 1;
+	  while(materias[pos][0] != nombre)
+	    pos = pos + 1;
+	  return pos;
+	}
 
-<select id="codigo">
-</select>
-
-<script>
-function Agregar_A_Materias(codigo,nombre) {
-  var Opciones_Materias = document.getElementById("codigo");
-  var Opcion_Agregar=document.createElement("option");
-  Opcion_Agregar.setAttribute("value",codigo);
-  Opcion_Agregar.text = nombre;
-  Opciones_Materias.appendChild(Opcion_Agregar);
-}
-
-for(j = 1; materias[j].length; j++ ){
-  Agregar_A_Materias(materias[j][5],materias[j][0]);
-}
-</script>
-
-<script>
-
-var requisitos, text, fLen, i,j,posibles;
-
-posibles = ["relleno","relleno","minimos","actuales","faltan"];
-
-requisitos = [
-["A1","Calculo diferencial e integral",36],
-["A2","Algebra Lineal",18],
-["A3","Probabilidad y estadistica",12],
-["A4","Topologia",12],
-["A5","Cálculo diferencial e integral INTERMEDIO",18],
-["A6","Algebra, fundamentos, teoria de numeros",24],
-["A7","Analisis,analisis numerico,ecuaciones diferenciales",24],
-["A8","Geometria. Sistemas dinamicos. Topologia",24]];
-
-reLen = requisitos.length;
-text = "<table id= \" objetivos \">";
-text += "<tr><th>Area</th><th>Curso</th><th>Minimos</th><th>Tienes</th><th>Faltan</th></tr>";
-
-for (i = 0; i < reLen; i++)
-{
-
-  text += "<tr>"
-    for (j = 0; j < requisitos[i].length; j++) {
-        text += "<td>" +requisitos[i][j] + "</td>";
+	function eliminar_creditos(id_materia){
+	  area =  materias[id_materia][1];
+	  creditos = materias[id_materia][3];
+	  sub_area = materias[id_materia][4];
+	  if(sub_area != ""){
+	    valor = document.getElementById(sub_area+"actuales");
+	    valor.innerHTML = Number(valor.innerText) - creditos;
+	    valor2 = document.getElementById(sub_area+"faltan");
+	    valor2.innerHTML = Number(valor2.innerText) + creditos;
 	  }
-    text += "<td id=" + requisitos[i][0] + posibles[3] + "> 0 </td>";
-    text += "<td id=" + requisitos[i][0] + posibles[4] + ">" + requisitos[i][2] + "</td>";
-    text += "</tr>"
-}
+	  tipos_mat = document.getElementById(area);
+	  tipos_mat.innerHTML = Number(tipos_mat.innerText) - creditos;
+	  tipos_mat2 = document.getElementById("totales");
+	  tipos_mat2.innerHTML = Number(tipos_mat2.innerText) - creditos;
+	}
+
+	function myFunction(id_materia,semestre) {
+	    //Adaptacion
+	    nombre_materia = materias[id_materia][0];
+	    area =  materias[id_materia][1];
+	    tipo = materias[id_materia][2];
+	    creditos = materias[id_materia][3];
+	    sub_area = materias[id_materia][4];
+	    if(sub_area != ""){
+	      valor = document.getElementById(sub_area+"actuales");
+	      valor.innerHTML = creditos  + Number(valor.innerText);
+	      valor2 = document.getElementById(sub_area+"faltan");
+	      if (Number(valor2.innerText) - creditos < 0)
+		valor2.innerHTML = 0;
+	      else
+		valor2.innerHTML = Number(valor2.innerText) - creditos;
+	    }
+	    tipos_mat = document.getElementById(area);
+	    tipos_mat.innerHTML = creditos  + Number(tipos_mat.innerText);
+	    tipos_mat2 = document.getElementById("totales");
+	    tipos_mat2.innerHTML = Number(tipos_mat2.innerText) + creditos;
 
 
-document.getElementById("demo").innerHTML = text;
-var estado = "";
+	    var table = document.getElementById(semestre);
+	    var row = table.insertRow(1);
+	    var cell1 = row.insertCell(0);
+	    var cell2 = row.insertCell(1);
+	    var cell3 = row.insertCell(2);
+	    var cell4 = row.insertCell(3);
+	    cell1.innerHTML = nombre_materia;
+	    cell2.innerHTML = creditos;
+	    if(sub_area != ""){
+		cell3.innerHTML = sub_area;
+	    }
+	    else
+	    {
+		cell3.innerHTML = area;
+	    }
+	    cell4.innerHTML = tipo;
+	}
+	</script>
 
-estado = "<table id= \" tipos_mat \">";
-estado += "<tr><th>Categoria</th><th>Tipo A</th><th>Tipo B</th><th>Tipo C</th><th>Tipos D</th><th>Totales</th></tr>";
-estado += "<tr>";
-estado += "<td id=" + '"s"' + "> Creditos </td>";
-estado += "<td id=" + '"A"' + "> 0 </td>";
-estado += "<td id=" + '"B"' + "> 0 </td>";
-estado += "<td id=" + '"C"' + "> 0 </td>";
-estado += "<td id=" + '"D"' + "> 0 </td>";
-estado += "<td id=" + '"totales"' + "> 0 </td>";
-estado += "</tr></table>"
-document.getElementById("est_actual").innerHTML = estado;
+
+	<select id="codigo"></select>
+
+	<script>
+	function Agregar_A_Materias(codigo,nombre) {
+	  var Opciones_Materias = document.getElementById("codigo");
+	  var Opcion_Agregar=document.createElement("option");
+	  Opcion_Agregar.setAttribute("value",codigo);
+	  Opcion_Agregar.text = nombre;
+	  Opciones_Materias.appendChild(Opcion_Agregar);
+	}
+
+	for(j = 1; materias[j].length; j++ ){
+	  Agregar_A_Materias(materias[j][5],materias[j][0]);
+	}
+	</script>
+
+	<script>
+
+	var requisitos, text, fLen, i,j,posibles;
+
+	posibles = ["relleno","relleno","minimos","actuales","faltan"];
+
+	requisitos = [
+	["A1","Calculo diferencial e integral",36],
+	["A2","Algebra Lineal",18],
+	["A3","Probabilidad y estadistica",12],
+	["A4","Topologia",12],
+	["A5","Cálculo diferencial e integral INTERMEDIO",18],
+	["A6","Algebra, fundamentos, teoria de numeros",24],
+	["A7","Analisis,analisis numerico,ecuaciones diferenciales",24],
+	["A8","Geometria. Sistemas dinamicos. Topologia",24]];
+
+	reLen = requisitos.length;
+	text = "<table id= \" objetivos \">";
+	text += "<tr><th>Area</th><th>Curso</th><th>Minimos</th><th>Tienes</th><th>Faltan</th></tr>";
+
+	for (i = 0; i < reLen; i++)
+	{
+
+	  text += "<tr>"
+	    for (j = 0; j < requisitos[i].length; j++) {
+		text += "<td>" +requisitos[i][j] + "</td>";
+		  }
+	    text += "<td id=" + requisitos[i][0] + posibles[3] + "> 0 </td>";
+	    text += "<td id=" + requisitos[i][0] + posibles[4] + ">" + requisitos[i][2] + "</td>";
+	    text += "</tr>"
+	}
 
 
+	document.getElementById("demo").innerHTML = text;
+	var estado = "";
 
-</script>
+	estado = "<table id= \" tipos_mat \">";
+	estado += "<tr><th>Categoria</th><th>Tipo A</th><th>Tipo B</th><th>Tipo C</th><th>Tipos D</th><th>Totales</th></tr>";
+	estado += "<tr>";
+	estado += "<td id=" + '"s"' + "> Creditos </td>";
+	estado += "<td id=" + '"A"' + "> 0 </td>";
+	estado += "<td id=" + '"B"' + "> 0 </td>";
+	estado += "<td id=" + '"C"' + "> 0 </td>";
+	estado += "<td id=" + '"D"' + "> 0 </td>";
+	estado += "<td id=" + '"totales"' + "> 0 </td>";
+	estado += "</tr></table>"
+	document.getElementById("est_actual").innerHTML = estado;
+
+	</script>
+</body>
+</html>
